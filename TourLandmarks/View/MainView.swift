@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         
+        
         VStack {
             MapView()
                 .frame(height: 300)
@@ -39,6 +40,18 @@ struct MainView: View {
             .padding()
             
             Spacer()
+        }
+        .onAppear {
+            print("data")
+            NetworkManager.shared.getAreaBasedLandmakrs { result in
+                switch result {
+                case .success(let landmark):
+                    print("Landmark: \(landmark)")
+                case .failure(let error):
+                    print("Erro: \(error)")
+                }
+            
+            }
         }
     }
 }
